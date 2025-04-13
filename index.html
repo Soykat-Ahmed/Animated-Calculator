@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Beautiful Calculator</title>
+  <style>
+    body {
+  font-family: Arial, sans-serif;
+  background: linear-gradient(45deg, #ff6b6b, #f06595, #a5b4fc, #34d399);
+  background-size: 400% 400%;
+  animation: gradientAnimation 10s ease infinite;
+  background-position: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+  color: #fff;
+}
+
+@keyframes gradientAnimation {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.calculator {
+  background: rgba(0, 0, 0, 0.75);
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  overflow: hidden;
+  width: 90%;
+  max-width: 320px;
+  padding: 20px;
+}
+
+.display {
+  background: #23272a;
+  padding: 15px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+}
+
+.display input {
+  width: 100%;
+  font-size: 1.8rem;
+  background: none;
+  border: none;
+  color: #fff;
+  text-align: right;
+}
+
+.buttons {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+}
+
+button {
+  background: #7289da;
+  border: none;
+  border-radius: 10px;
+  padding: 20px;
+  font-size: 1.2rem;
+  color: #fff;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+button:hover {
+  background: #99aab5;
+  transform: scale(1.1);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+}
+
+button:active {
+  background: #5865f2;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.4);
+}
+
+/* Equal button styling */
+button:nth-child(16) {
+  grid-column: span 2;
+  background: #43b581;
+}
+
+button:nth-child(16):hover {
+  background: #2f9a67;
+}
+
+button:nth-child(16):active {
+  background: #24c34e;
+}
+
+/* Responsive adjustments */
+@media (max-width: 400px) {
+  .calculator {
+    padding: 15px;
+  }
+  button {
+    padding: 15px;
+    font-size: 1rem;
+  }
+}
+
+  </style>
+</head>
+<body>
+  <div class="calculator">
+    <div class="display">
+      <input type="text" id="result" readonly>
+    </div>
+    <div class="buttons">
+      <button onclick="clearDisplay()">C</button>
+      <button onclick="deleteLast()">DEL</button>
+      <button onclick="appendValue('%')">%</button>
+      <button onclick="appendValue('/')">÷</button>
+      <button onclick="appendValue('7')">7</button>
+      <button onclick="appendValue('8')">8</button>
+      <button onclick="appendValue('9')">9</button>
+      <button onclick="appendValue('*')">×</button>
+      <button onclick="appendValue('4')">4</button>
+      <button onclick="appendValue('5')">5</button>
+      <button onclick="appendValue('6')">6</button>
+      <button onclick="appendValue('-')">−</button>
+      <button onclick="appendValue('1')">1</button>
+      <button onclick="appendValue('2')">2</button>
+      <button onclick="appendValue('3')">3</button>
+      <button onclick="appendValue('+')">+</button>
+      <button onclick="appendValue('0')">0</button>
+      <button onclick="appendValue('.')">.</button>
+      <button onclick="calculateResult()">=</button>
+    </div>
+  </div>
+  <script>
+    const resultInput = document.getElementById('result');
+
+    function appendValue(value) {
+      resultInput.value += value;
+    }
+
+    function clearDisplay() {
+      resultInput.value = '';
+    }
+
+    function deleteLast() {
+      resultInput.value = resultInput.value.slice(0, -1);
+    }
+
+    function calculateResult() {
+      try {
+        resultInput.value = eval(resultInput.value);
+      } catch (error) {
+        alert('Invalid Expression');
+        clearDisplay();
+      }
+    }
+  </script>
+</body>
+</html>
